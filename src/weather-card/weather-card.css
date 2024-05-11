@@ -1,0 +1,33 @@
+.weather-card-container {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr; /* Erzeugt zwei Spalten mit gleicher Breite */
+    gap: 20px; /* Setzt den Abstand zwischen den Spalten */
+    padding: 10px; /* Fügt etwas Abstand innerhalb des Containers hinzu */
+    border: 1pt solid #101010;
+    border-radius: 10pt;
+    margin: 20px 0px;
+    padding: 20px;
+    background-color: aliceblue;
+}
+
+.location-container, .weather-container {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.weather-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-icon svg{
+    transform: scale(3.5);
+}
+
+.weather-icon svg path {
+    fill: yellow; /* Setzt die Füllfarbe auf Rot */
+    stroke: blue; /* Setzt die Linienfarbe auf Blau */
+}

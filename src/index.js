@@ -12,17 +12,18 @@ import "@fortawesome/fontawesome-free/js/solid";
 import "@fortawesome/fontawesome-free/js/regular";
 import "@fortawesome/fontawesome-free/js/brands";
 
-import { sampleComponent } from "./sample-component/sample-component";
+import { getWeatherFromLocation } from "./weather-api-client/weather-api-client";
+import { createWeatherCard } from "./weather-card/weather-card";
 
-function component() {
-    const element = document.createElement('div');
-    let sampleComponentTest = sampleComponent();
-    element.innerHTML = sampleComponentTest.sayHello();
-  
-    return element;
-  
-  }
-  
+getWeatherFromLocation().then((response, reject)=>{
+  console.dir(response);
+  createWeatherCard('section#content', response);
+});
 
-
-  document.body.appendChild(component());
+document.querySelector("form#location-search-form").addEventListener("submit", function(event) {
+  event.preventDefault();
+  const searchValue = this.querySelector("input#location-search").value;
+  getWeatherFromLocation(searchValue).then((response)=>{
+    createWeatherCard('section#content', response);
+  });
+})
