@@ -1,18 +1,20 @@
 import "./weather-card.css";
 import { createWeatherLocation } from "../weather-location-model/weather-location";
 
-function createWeatherCard(selector, data){
+
+function createWeatherCard(selector, data, metric = true){
     const _weatherLocation = createWeatherLocation(data);
     console.dir(_weatherLocation.humidity);
     const weatherCardContainer = document.createElement("div");
     weatherCardContainer.classList.add("weather-card-container");
-    weatherCardContainer.innerHTML = createTemplate(_weatherLocation);
+    weatherCardContainer.innerHTML = createTemplate(_weatherLocation, metric);
     const selectorNode = document.querySelector(selector);
     selectorNode.append(weatherCardContainer);
 }
 
-function createTemplate(data){
-    const template = createLocationTemplate(data) + createWeatherTemplate(data);
+function createTemplate(data, metric){
+    let weatherDataTemplate = metric ? createWeatherTemplateMetric(data) : createWeatherTemplateUS(data);
+    const template = createLocationTemplate(data) + weatherDataTemplate;
     return template + `<div class="weather-icon"><i class="fa-solid fa-sun"></i></div>`;
 }
 
@@ -27,7 +29,7 @@ function createLocationTemplate(data){
     return template;
 }
 
-function createWeatherTemplate(data){
+function createWeatherTemplateMetric(data){
     const template = 
     `<div class="weather-container">
         <span class="weather-temp-c">Temparatur (C): ${data.temp_c}</span>
@@ -37,5 +39,17 @@ function createWeatherTemplate(data){
 
     return template;
 }
+
+function createWeatherTemplateUS(data){
+    const template = 
+    `<div class="weather-container">
+        <span class="weather-temp-c">Temparatur (F): ${data.temp_f}</span>
+        <span class="weather-wind-kph">Windst&auml;rke (mph): ${data.wind_mph}</span>
+        <span class="weather-humidity">Luftfeuchtigkeit: ${data.humidity}</span>
+    </div>`;
+
+    return template;
+}
+
 
 export { createWeatherCard };

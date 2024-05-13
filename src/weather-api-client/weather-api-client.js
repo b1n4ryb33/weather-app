@@ -5,7 +5,12 @@ const BASE_URL = `https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_K
 
 
 async function getWeatherFromLocation(location = "london"){
-   try {
+
+    if (location == ""){
+        throw new Error("Location must be set. Cant show weather for nothing.");
+    }
+
+    try {
         const queryUrl = addQueryParam('q', location, BASE_URL);
         
         let response = await fetch(queryUrl, {
@@ -13,12 +18,12 @@ async function getWeatherFromLocation(location = "london"){
         });
 
         let data = await validateResponse(response);
+
         return data;
     } catch (err){
-        console.dir(err);
+        throw err;
     }
 }
-
 
 async function validateResponse(response){
  
